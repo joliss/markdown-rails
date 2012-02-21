@@ -1,0 +1,1 @@
+require 'markdown/rails/engine'
