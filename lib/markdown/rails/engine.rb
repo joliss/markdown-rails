@@ -1,30 +1,21 @@
-require 'temple'
 require 'redcarpet'
-require 'temple/mixins/dispatcher' # temple issue #58
 require 'action_view'
 
 module Markdown
   module Rails
-    class Parser
-      def initialize(options = {})
-        @options = options
-
+    class Handler
+      def initialize
         @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
       end
 
-      def call(exp)
-        [:static, @markdown.render(exp.source)]
+      def call(template)
+        # Return Ruby code that returns the compiled template
+        @markdown.render(template.source).inspect + '.html_safe'
       end
-    end
-
-    class Engine < Temple::Engine
-      use ::Markdown::Rails::Parser
-
-      generator :ArrayBuffer
     end
   end
 end
 
-engine = Markdown::Rails::Engine.new
-ActionView::Template.register_template_handler(:md, engine)
-ActionView::Template.register_template_handler(:markdown, engine)
+handler = Markdown::Rails::Handler.new
+ActionView::Template.register_template_handler(:md, handler)
+ActionView::Template.register_template_handler(:markdown, handler)
