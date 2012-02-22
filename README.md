@@ -90,12 +90,23 @@ Markdown views from any source if you wouldn't trust Erb views from them.
 
 ## To-Do
 
-* The only truly Markdown-specific code in the source is
-  `RDiscount.new(markdown_source).to_html` and the Markdown file name
-  extensions. This gem can and should be generalized into a general-purpose
-  static template gem, so that you can easily use other static templating
-  languages in Rails. Perhaps [tilt](https://github.com/rtomayko/tilt) will
-  come in useful.
+*   It's not possible to embed Erb in the Markdown code. You cannot simply chain
+    template handlers (`.md.erb`) like you can with asset handlers. (This is
+    reasonable if you consider that unlike assets, templates are precompiled not
+    into strings but into Ruby code, which is then called every time the template
+    is served.) Still, the performance of modern Markdown parsers is good enough
+    that you can reparse the Markdown on every template view without
+    precompiling, so this should be possible in principle.
+
+    In the meantime, you can [use HAML's :markdown
+    filter](http://stackoverflow.com/a/4418389/525872) to the same effect.
+
+*   The only truly Markdown-specific code in the source is
+    `RDiscount.new(markdown_source).to_html` and the Markdown file name
+    extensions. This gem can and should be generalized into a general-purpose
+    static template gem, so that you can easily use other static templating
+    languages in Rails. Perhaps [tilt](https://github.com/rtomayko/tilt) will
+    come in useful.
 
 ## Limitations
 
