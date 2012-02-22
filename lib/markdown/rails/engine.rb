@@ -1,18 +1,35 @@
-require 'redcarpet'
+require 'rdiscount'
 require 'action_view'
 
 module Markdown
   module Rails
     class Handler
       def initialize
-        @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
       end
 
       def call(template)
         # Return Ruby code that returns the compiled template
-        @markdown.render(template.source).inspect + '.html_safe'
+        Markdown::Rails.renderer.call(template.source).inspect + '.html_safe'
       end
     end
+
+    class <<self
+      def configure
+        yield self
+      end
+
+      attr_accessor :renderer
+
+      def render(&block)
+        self.renderer = block
+      end
+    end
+  end
+end
+
+Markdown::Rails.configure do |config|
+  config.render do |markdown_source|
+    RDiscount.new(markdown_source).to_html
   end
 end
 
