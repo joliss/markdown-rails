@@ -58,7 +58,7 @@ by calling `config.render` like so:
 ```ruby
 Markdown::Rails.configure do |config|
   config.render do |markdown_source|
-    ... return compiled HTML here ...
+    # Return compiled HTML here ...
   end
 end
 ```
