@@ -92,12 +92,12 @@ Markdown views from a source if you wouldn't trust Erb views from them.
 
 *   It's not possible to embed Ruby code in the Markdown code. Unfortunately,
     you cannot simply chain template handlers (`.md.erb`) like you can with
-    asset handlers. (This is reasonable if you consider that unlike assets,
+    asset handlers. This is reasonable if you consider that unlike assets,
     templates are precompiled not into strings but into Ruby code, which is
-    then called every time the template is served.) Still, the performance of
-    modern Markdown parsers is good enough that you can reparse the Markdown on
-    every template view without precompiling, so this should be possible in
-    principle.
+    then called every time the template is served. Still, the performance of
+    modern Markdown parsers is good enough that you could afford to reparse the
+    Markdown on every template view, so having Markdown with Erb in it should
+    be possible in principle.
 
     In the meantime, you can [use HAML's :markdown
     filter](http://stackoverflow.com/a/4418389/525872) to the same effect.
