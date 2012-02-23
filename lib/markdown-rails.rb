@@ -1,1 +1,2 @@
-require 'markdown/rails/engine'
+require 'markdown-rails/version'
+require 'markdown-rails/engine'

@@ -56,7 +56,7 @@ By default markdown-rails uses the
 by calling `config.render` like so:
 
 ```ruby
-Markdown::Rails.configure do |config|
+MarkdownRails.configure do |config|
   config.render do |markdown_source|
     # Return compiled HTML here ...
   end
@@ -71,7 +71,7 @@ parser options. To do so, add the `redcarpet` gem to your Gemfile, and add the
 following into a `config/initializers/markdown.rb` file:
 
 ```ruby
-Markdown::Rails.configure do |config|
+MarkdownRails.configure do |config|
   markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
     :fenced_code_blocks => true,
     :autolink => true,
