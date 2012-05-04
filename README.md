@@ -51,6 +51,12 @@ In `app/views/posts/_edit_help.html.md`:
 This text is written in **Markdown**. :-)
 ```
 
+Note: If you are including Markdown partials from a Haml view, `<pre>` blocks
+inside your Markdown may be indented when Haml is not in ["ugly" (production)
+mode](http://haml-lang.com/docs/yardoc/file.HAML_REFERENCE.html#ugly-option),
+causing leading white-space to appear in development mode. To fix this, set
+`Haml::Template.options[:ugly] = true`.
+
 ## Configuration
 
 By default markdown-rails uses the
