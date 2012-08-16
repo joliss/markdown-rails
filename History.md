@@ -1,4 +1,4 @@
-# master
+# 0.2.1
 
 * Add support for Rails 2.x
 
