@@ -2,6 +2,8 @@
 embedding Erb in your Markdown, check out @wjbuys's [answer on
 Stackoverflow](http://stackoverflow.com/a/10131299/525872).**
 
+------------------------
+
 # markdown-rails
 
 [![Dependency Status](https://gemnasium.com/joliss/markdown-rails.png)](https://gemnasium.com/joliss/markdown-rails)
