@@ -9,7 +9,7 @@ module MarkdownRails
 
     def call(template)
       # Return Ruby code that returns the compiled template
-      MarkdownRails.renderer.call(template.source).inspect + '.html_safe'
+      '"' + MarkdownRails.renderer.call(template.source).gsub(/"/, '\"') + '".html_safe'
     end
   end
 
