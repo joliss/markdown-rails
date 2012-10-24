@@ -4,12 +4,16 @@ require 'action_view'
 # We cannot use Markdown::Rails because it conflicts with RDiscount's Markdown class
 module MarkdownRails
   class Handler
-    def initialize
+    # Build ruby code that will be evaluated in the view context.
+    def call(template)
+      src = <<-end_src
+        MarkdownRails.renderer.call("#{template.source.gsub(/"/, '\"')}").html_safe
+      end_src
     end
 
-    def call(template)
-      # Return Ruby code that returns the compiled template
-      MarkdownRails.renderer.call(template.source).inspect + '.html_safe'
+    # Allow for use of the class as a renderer in a reentrant way.
+    def self.call(template)
+      new.call(template)
     end
   end
 
@@ -20,19 +24,20 @@ module MarkdownRails
 
     attr_accessor :renderer
 
+    # Stores the given block as a constructor for a new renderer.
+    # When MarkdownRails.renderer.call(text) is called this block is executed and passed +text+.
     def render(&block)
       self.renderer = block
     end
   end
 end
 
+# Default configuration using RDiscount, a fast C Markdown implementation.
 MarkdownRails.configure do |config|
   config.render do |markdown_source|
     RDiscount.new(markdown_source).to_html
   end
 end
-
-handler = MarkdownRails::Handler.new
 
 [:md, :markdown].each do |extension|
   # >= v3.0.5
@@ -50,5 +55,5 @@ handler = MarkdownRails::Handler.new
   # I give up...
   else
     raise "Couldn't find `register_template_handler' method in ActionView module."
-  end.register_template_handler extension, handler
+  end.register_template_handler extension, MarkdownRails::Handler
 end
