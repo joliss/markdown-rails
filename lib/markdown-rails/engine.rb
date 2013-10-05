@@ -7,9 +7,15 @@ module MarkdownRails
     def initialize
     end
 
+    def erb
+      @erb ||= ActionView::Template.registered_template_handler(:erb)
+    end
+
     def call(template)
-      # Return Ruby code that returns the compiled template
-      MarkdownRails.renderer.call(template.source).inspect + '.html_safe'
+      # http://stackoverflow.com/a/10131299/358804
+      markdown = erb.call(template).html_safe
+      # Return a string of Ruby code that returns the compiled template
+      "MarkdownRails.renderer.call(begin;#{markdown};end).html_safe"
     end
   end
 
