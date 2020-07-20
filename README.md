@@ -6,8 +6,6 @@ Stackoverflow](http://stackoverflow.com/a/10131299/525872).**
 
 # markdown-rails
 
-[![Dependency Status](https://gemnasium.com/joliss/markdown-rails.png)](https://gemnasium.com/joliss/markdown-rails)
-
 This gem allows you to write static Rails views and partials using the
 [Markdown](http://daringfireball.net/projects/markdown/syntax) syntax. No more
 editing prose in HTML!
