@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
 
   s.add_dependency "rails"
-  s.add_dependency "rdiscount", [">= 1.6.8", "< 2.0"]
+  s.add_dependency "rdiscount", [">= 2.2.0.2", "< 3.0"]
 
   s.files        = `git ls-files`.split("\n").reject { |f| f =~ /^testapp/ }
   s.executables  = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
