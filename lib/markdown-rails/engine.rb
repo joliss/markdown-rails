@@ -7,9 +7,9 @@ module MarkdownRails
     def initialize
     end
 
-    def call(template)
+    def call(template, source = template.source)
       # Return Ruby code that returns the compiled template
-      MarkdownRails.renderer.call(template.source).inspect + '.html_safe'
+      MarkdownRails.renderer.call(source).inspect + '.html_safe'
     end
   end
 
